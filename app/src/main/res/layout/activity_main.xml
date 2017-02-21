@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -15,16 +16,27 @@
     <com.wrbug.timelineview.TimeLineView
         android:id="@+id/timeLineView1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp"
+        app:preStringColor="#00ff00"
+        app:startedStringColor="#ff0000"/>
+
     <com.wrbug.timelineview.TimeLineView
         android:id="@+id/timeLineView2"
         android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:layout_height="50dp"/>
+        app:preCircleColor="#2200dd"
+        app:startedCircleColor="#DD3333"/>
+
     <com.wrbug.timelineview.TimeLineView
         android:id="@+id/timeLineView3"
         android:layout_width="match_parent"
-        android:layout_margin="20dp"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        app:preCircleColor="#0044ff"
+        app:preLineColor="#333333"
+        app:startedCircleColor="#880000"
+        app:startedLineColor="#ff0000"
+        app:textSize="12sp"/>
 
 </LinearLayout>

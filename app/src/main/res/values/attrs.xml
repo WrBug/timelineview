@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TimeLineView">
+        <attr name="startedLineColor" format="color"/>
+        <attr name="preLineColor" format="color"/>
+        <attr name="startedCircleColor" format="color"/>
+        <attr name="underwayCircleColor" format="color"/>
+        <attr name="preCircleColor" format="color"/>
+        <attr name="startedStringColor" format="color"/>
+        <attr name="underwayStringColor" format="color"/>
+        <attr name="preStringColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
+</resources>

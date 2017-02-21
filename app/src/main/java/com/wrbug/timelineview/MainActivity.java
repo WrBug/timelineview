@@ -22,13 +22,20 @@ public class MainActivity extends AppCompatActivity {
         data.add("等候支付");
         data.add("等候商家接单");
         data.add("等候配送");
-        data.add("等候送达");
         mView1.setData(data, 1);
+        data = new ArrayList<>();
+        data.add("等候支付");
+        data.add("等候商家接单");
+        data.add("等候配送");
+        data.add("等候送达");
         mView2.setData(data, 2);
         data = new ArrayList<>();
         data.add("第一步");
         data.add("第二步");
         data.add("第三步");
+        data.add("第四步");
+        data.add("第五步");
+
         mView3.setData(data, 3);
     }
 }
