@@ -1,4 +1,4 @@
-package com.wrbug.timelineview;
+package com.wrbug.opensources;
 
 import org.junit.Test;
 

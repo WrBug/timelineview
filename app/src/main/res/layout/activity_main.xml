@@ -11,16 +11,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.wrbug.timelineview.MainActivity">
+    tools:context=".MainActivity">
 
-    <com.wrbug.timelineview.TimeLineView
+    <com.wrbug.opensources.TimeLineView
         android:id="@+id/timeLineView1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:preStringColor="#00ff00"
         app:startedStringColor="#ff0000"/>
 
-    <com.wrbug.timelineview.TimeLineView
+    <com.wrbug.opensources.TimeLineView
         android:id="@+id/timeLineView2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -28,15 +28,28 @@
         app:preCircleColor="#2200dd"
         app:startedCircleColor="#DD3333"/>
 
-    <com.wrbug.timelineview.TimeLineView
+    <com.wrbug.opensources.TimeLineView
         android:id="@+id/timeLineView3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         app:preCircleColor="#0044ff"
         app:preLineColor="#333333"
         app:startedCircleColor="#880000"
         app:startedLineColor="#ff0000"
         app:textSize="12sp"/>
 
+    <Button
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="走你"/>
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="回到第一步"/>
 </LinearLayout>

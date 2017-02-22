@@ -1,6 +1,8 @@
-package com.wrbug.timelineview;
+package com.wrbug.opensources;
 
 import android.content.res.TypedArray;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -19,8 +21,17 @@ import java.util.List;
  */
 public class TimeLineView extends View {
     private Paint mPaint;
+    /**
+     * 状态文本
+     */
     private List<String> mPointTxt;
-    private int mStep = 3;
+    /**
+     * 步数
+     */
+    private int mStep = 1;
+    /**
+     * 圆形组x坐标
+     */
     private int[] mXpoints;
 
     private int mPreLineColor;
@@ -36,6 +47,8 @@ public class TimeLineView extends View {
 
     private int mRadius = 10;
     private int mTextSize = 20;
+
+    private OnStepChangedListener mOnStepChangedListener;
 
     public TimeLineView(Context paramContext) {
         this(paramContext, null);
@@ -82,33 +95,64 @@ public class TimeLineView extends View {
         this.mUnderwayStringColor = mStartedStringColor;
         this.mPreStringColor = mPreLineColor;
         this.mPointTxt = new ArrayList();
-        this.mPointTxt.add("等候支付");
-        this.mPointTxt.add("等候商家接单");
-        this.mPointTxt.add("等候配送");
-        this.mPointTxt.add("等候送达");
     }
 
-    public void draw(Canvas paramCanvas) {
-        if ((this.mXpoints == null) || (this.mXpoints.length != this.mPointTxt.size())) {
-            int len = this.mPointTxt.size();
-            this.mXpoints = new int[len];
-            if (len > 1) {
-                int strlen = this.mPointTxt.get(0).length() / 2 * this.mTextSize;
-                this.mXpoints[0] = Math.max(strlen, this.mRadius);
-                strlen = this.mPointTxt.get(len - 1).length() / 2 * this.mTextSize;
-                this.mXpoints[len - 1] = getWidth() - Math.max(strlen, this.mRadius);
-                int dx = (this.mXpoints[len - 1] - this.mXpoints[0]) / (len - 1);
-                for (int i = 1; i < this.mXpoints.length - 1; i++) {
-                    this.mXpoints[i] = mXpoints[0] + dx * i;
-                }
-                super.draw(paramCanvas);
+    public void setPointStrings(@NonNull List<String> pointStringList, @IntRange(from = 1) int step) {
+        if (pointStringList == null || pointStringList.isEmpty()) {
+            this.mPointTxt.clear();
+            this.mStep = 0;
+        } else {
+            this.mPointTxt = new ArrayList(pointStringList);
+            this.mStep = Math.min(step, this.mPointTxt.size());
+        }
+        invalidate();
+    }
+
+    public void setStep(@IntRange(from = 1) int step) {
+        this.mStep = Math.min(step, this.mPointTxt.size());
+        invalidate();
+    }
+
+    public boolean nextStep() {
+        if (mStep + 1 > mPointTxt.size()) {
+            return false;
+        } else {
+            mStep++;
+            invalidate();
+            return true;
+        }
+    }
+
+    public int getStep() {
+        return mStep;
+    }
+
+    public void setOnStepChangedListener(OnStepChangedListener listener) {
+        this.mOnStepChangedListener = listener;
+    }
+
+    public void draw(Canvas canvas) {
+        int len = this.mPointTxt.size();
+        this.mXpoints = new int[len];
+        if (len > 1) {
+            int strlen = (int) (this.mPointTxt.get(0).length() / 2.0 * this.mTextSize);
+            this.mXpoints[0] = Math.max(strlen, this.mRadius);
+            strlen = (int) (this.mPointTxt.get(len - 1).length() / 2.0 * this.mTextSize);
+            this.mXpoints[len - 1] = getWidth() - Math.max(strlen, this.mRadius);
+            int dx = (this.mXpoints[len - 1] - this.mXpoints[0]) / (len - 1);
+            for (int i = 1; i < this.mXpoints.length - 1; i++) {
+                this.mXpoints[i] = mXpoints[0] + dx * i;
             }
+            super.draw(canvas);
         }
     }
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawCircle(canvas, this.mStep >= 1, this.mPointTxt.get(0), this.mXpoints[0]);
+        if (mOnStepChangedListener != null) {
+            mOnStepChangedListener.onchanged(this, this.mStep, this.mPointTxt.get(mStep - 1));
+        }
         for (int i = 1; i < mPointTxt.size(); i++) {
             drawLine(canvas, this.mStep > i, this.mXpoints[(i - 1)], this.mXpoints[i]);
             drawCircle(canvas, this.mStep > i, this.mPointTxt.get(i), this.mXpoints[i]);
@@ -116,16 +160,16 @@ public class TimeLineView extends View {
         }
     }
 
-    private void drawCircle(Canvas paramCanvas, boolean b, String text, int dx) {
-        this.mPaint.setColor(b ? mStartedCircleColor : mPreCircleColor);
+    private void drawCircle(Canvas canvas, boolean isStart, String text, int dx) {
+        this.mPaint.setColor(isStart ? mStartedCircleColor : mPreCircleColor);
         this.mPaint.setStyle(Paint.Style.STROKE);
         this.mPaint.setStrokeWidth(2.0F);
-        paramCanvas.drawCircle(dx, getHeight() - this.mRadius - 1, this.mRadius, this.mPaint);
+        canvas.drawCircle(dx, getHeight() - this.mRadius - 1, this.mRadius, this.mPaint);
         this.mPaint.setStyle(Paint.Style.FILL);
-        paramCanvas.drawCircle(dx, getHeight() - this.mRadius - 1, this.mRadius - 5, this.mPaint);
-        this.mPaint.setColor(b ? mStartedStringColor : mPreStringColor);
+        canvas.drawCircle(dx, getHeight() - this.mRadius - 1, this.mRadius - 5, this.mPaint);
+        this.mPaint.setColor(isStart ? mStartedStringColor : mPreStringColor);
         this.mPaint.setTextSize(this.mTextSize);
-        paramCanvas.drawText(text, dx - text.length() / 2.0F * this.mTextSize, getHeight() - this.mRadius * 2 - 15, this.mPaint);
+        canvas.drawText(text, dx - text.length() / 2.0F * this.mTextSize, getHeight() - this.mRadius * 2 - 15, this.mPaint);
     }
 
     private void drawLine(Canvas paramCanvas, boolean b, int startX, int endX) {
@@ -135,18 +179,7 @@ public class TimeLineView extends View {
         paramCanvas.drawLine(this.mRadius * 1.5F + startX, getHeight() - this.mRadius - 1, endX - this.mRadius * 1.5F, getHeight() - this.mRadius - 1, this.mPaint);
     }
 
-    public void setData(List<String> paramList, int paramInt) {
-        if (paramList == null) {
-            this.mPointTxt.clear();
-        } else {
-            this.mPointTxt = new ArrayList(paramList);
-            this.mStep = paramInt;
-        }
-        invalidate();
-    }
-
-    public void setStep(int paramInt) {
-        this.mStep = paramInt;
-        invalidate();
+    public interface OnStepChangedListener {
+        void onchanged(TimeLineView view, int step, String stepStr);
     }
 }

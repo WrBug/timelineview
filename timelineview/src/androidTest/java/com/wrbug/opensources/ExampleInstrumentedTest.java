@@ -1,4 +1,4 @@
-package com.wrbug.timelineview;
+package com.wrbug.opensources;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.wrbug.timelineview", appContext.getPackageName());
+        assertEquals("com.wrbug.timelineview.test", appContext.getPackageName());
     }
 }
