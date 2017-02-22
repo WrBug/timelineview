@@ -28,7 +28,16 @@ public class MainActivity extends AppCompatActivity {
         txts[0] = "111111111";
         txts[1] = "2111122";
         txts[2] = "3111133";
-        mView1.builder().pointStrings(txts, 1).preCircleColor(Color.rgb(0x3d, 0x4f, 0x77)).load();
+        mView1.builder().pointStrings(txts, 1)
+                .startedCircleColor(Color.BLUE)
+                .underwayCircleColor(Color.BLUE)
+                .preCircleColor(Color.GRAY)
+                .startedLineColor(Color.BLUE)
+                .preLineColor(Color.GRAY)
+                .startedStringColor(Color.BLUE)
+                .underwayStringColor(Color.BLUE)
+                .preStringColor(Color.GRAY)
+                .load();   //开始绘制
         List<String> data = new ArrayList<>();
         data.add("等候支付");
         data.add("等候商家接单");

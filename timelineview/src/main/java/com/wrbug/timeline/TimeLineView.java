@@ -111,6 +111,27 @@ public class TimeLineView extends View {
         return mBuilder;
     }
 
+    public void setPointStrings(@NonNull List<String> pointStringList, @IntRange(from = 1) int step) {
+        if (pointStringList == null || pointStringList.isEmpty()) {
+            mPointTxt.clear();
+            mStep = 0;
+        } else {
+            mPointTxt = new ArrayList(pointStringList);
+            mStep = Math.min(step, mPointTxt.size());
+        }
+        invalidate();
+    }
+
+    public void setPointStrings(@NonNull String[] pointStringList, @IntRange(from = 1) int step) {
+        if (pointStringList == null) {
+            mPointTxt.clear();
+            mStep = 0;
+            invalidate();
+        } else {
+            setPointStrings(new ArrayList<>(Arrays.asList(pointStringList)), step);
+        }
+    }
+
     public void setStep(@IntRange(from = 1) int step) {
         this.mStep = Math.min(step, this.mPointTxt.size());
         invalidate();
