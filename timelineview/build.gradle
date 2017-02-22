@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -20,7 +20,14 @@ android {
         }
     }
 }
-
+publish {
+    userOrg = 'wrbug'
+    groupId = 'com.wrbug'
+    artifactId = 'timelineview'
+    publishVersion = '1.0.0'
+    desc = 'timelineview'
+    website = 'https://github.com/WrBug/timelineview'
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

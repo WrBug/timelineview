@@ -13,22 +13,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <com.wrbug.opensources.TimeLineView
+    <com.wrbug.timeline.TimeLineView
         android:id="@+id/timeLineView1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:preStringColor="#00ff00"
+        app:radius="10dp"
+        app:lineWidth="5dp"
         app:startedStringColor="#ff0000"/>
 
-    <com.wrbug.opensources.TimeLineView
+    <com.wrbug.timeline.TimeLineView
         android:id="@+id/timeLineView2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         app:preCircleColor="#2200dd"
-        app:startedCircleColor="#DD3333"/>
+        app:startedCircleColor="#DD3333"
+        app:textSize="14sp"/>
 
-    <com.wrbug.opensources.TimeLineView
+    <com.wrbug.timeline.TimeLineView
         android:id="@+id/timeLineView3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -37,7 +40,9 @@
         app:preLineColor="#333333"
         app:startedCircleColor="#880000"
         app:startedLineColor="#ff0000"
-        app:textSize="12sp"/>
+        app:textSize="12sp"
+        app:underwayCircleColor="#00ff00"
+        app:underwayStringColor="#770022"/>
 
     <Button
         android:id="@+id/next"

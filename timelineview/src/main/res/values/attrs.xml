@@ -10,5 +10,7 @@
         <attr name="underwayStringColor" format="color"/>
         <attr name="preStringColor" format="color"/>
         <attr name="textSize" format="dimension"/>
+        <attr name="radius" format="dimension"/>
+        <attr name="lineWidth" format="dimension"/>
     </declare-styleable>
 </resources>
