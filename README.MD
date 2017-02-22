@@ -6,7 +6,7 @@
 ![][2]
 
 ## USAGR
-
+布局中添加
 ``` xml
     <com.wrbug.opensources.TimeLineView
         android:id="@+id/timeLineView3"
@@ -19,8 +19,7 @@
         app:startedLineColor="#ff0000"
         app:textSize="12sp"/>
 ```
-q
-
+Activity添加
 ``` java
 TimeLineView mView3=(TimeLineView) findViewById(R.id.timeLineView3);
 List<String> data = new ArrayList<>();
